@@ -2,11 +2,9 @@
 
 [![CI](https://github.com/haseebn19/hostage-chess/actions/workflows/ci.yml/badge.svg)](https://github.com/haseebn19/hostage-chess/actions/workflows/ci.yml)
 
-<p align="center">
-  <img src="docs/logo.svg" alt="Hostage Chess Logo" width="120">
-</p>
+<img src="docs/logo.svg" alt="Hostage Chess Logo" width="250">
 
-♟ A multiplayer web-based implementation of Hostage Chess with full rules enforcement, real-time timers, and game history.
+A multiplayer web-based implementation of Hostage Chess with full rules enforcement, real-time timers, and game history.
 
 ## Screenshots
 
