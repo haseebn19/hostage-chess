@@ -8,11 +8,11 @@ A multiplayer web-based implementation of Hostage Chess with full rules enforcem
 
 ## Screenshots
 
-<img src="docs/screenshot-gameboard.jpeg" alt="Game Board" width="600">
+<img src="docs/screenshot-gameboard.jpeg" alt="Game Board" width="500">
 
-<img src="docs/screenshot-hostage-exhange.jpeg" alt="Hostage Exchange" width="600">
+<img src="docs/screenshot-hostage-exhange.jpeg" alt="Hostage Exchange" width="500">
 
-<img src="docs/screenshot-history.jpeg" alt="Game History" width="600">
+<img src="docs/screenshot-history.jpeg" alt="Game History" width="500">
 
 ## Features
 
