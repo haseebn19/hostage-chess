@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import urllib.parse
-from datetime import datetime
+from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 
@@ -541,7 +541,16 @@ class RequestHandler(BaseHTTPRequestHandler):
     def _serve_static(self, path: str) -> None:
         """Serve files from the static directory."""
         relative = path.removeprefix("/static/")
-        filepath = STATIC_DIR / relative
+        
+        try:
+            filepath = (STATIC_DIR / relative).resolve()
+        except Exception:
+            self.send_error(400, "Bad Request")
+            return
+
+        if not filepath.is_relative_to(STATIC_DIR.resolve()):
+            self.send_error(403, "Forbidden")
+            return
 
         if not filepath.exists() or not filepath.is_file():
             self.send_error(404, "Not Found")
@@ -615,7 +624,7 @@ class RequestHandler(BaseHTTPRequestHandler):
     @staticmethod
     def _elapsed_since(iso_time: str) -> int:
         """Calculate seconds elapsed since the given ISO time string."""
-        return int((datetime.now() - datetime.fromisoformat(iso_time)).total_seconds())
+        return int((datetime.now(timezone.utc) - datetime.fromisoformat(iso_time)).total_seconds())
 
     def _get_state_from_turn(self, turn_data: dict) -> GameState:
         """Reconstruct GameState from turn_data dictionary."""

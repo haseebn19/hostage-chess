@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import html
+
 COMMON_HEAD = """
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -223,7 +225,7 @@ def game_over_page(game_no: int, result: str) -> str:
         <div class="game-over-card">
             <div class="game-over-icon">🏁</div>
             <h1>Game Over</h1>
-            <p class="result-text">{result}</p>
+            <p class="result-text">{html.escape(result)}</p>
             <div class="game-over-links">
                 <a href="/history" class="link-btn">Game History</a>
                 <a href="/" class="link-btn primary">New Game</a>
@@ -241,9 +243,9 @@ def history_page(games: list[dict]) -> str:
         rows += f"""
             <tr onclick="window.location.href='/gamelog?game_no={game["game_no"]}'">
                 <td>{game["game_no"]}</td>
-                <td>{game["white_handle"]}</td>
-                <td>{game["black_handle"]}</td>
-                <td>{game["result"]}</td>
+                <td>{html.escape(game["white_handle"])}</td>
+                <td>{html.escape(game["black_handle"] or "N/A")}</td>
+                <td>{html.escape(game["result"] or "In Progress")}</td>
             </tr>"""
 
     empty_msg = '<p class="empty-msg">No games played yet.</p>' if not games else ""
@@ -305,7 +307,7 @@ def gamelog_page(game_no: int, result: str, turns: list[dict]) -> str:
     <div class="page-container">
         <div class="gamelog-card">
             <h1>Game {game_no}</h1>
-            <p class="result-text">{result}</p>
+            <p class="result-text">{html.escape(result)}</p>
             <div class="log-boards">
                 {boards_html}
             </div>

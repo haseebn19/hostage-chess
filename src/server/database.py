@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 DEFAULT_DB_PATH = Path("hostage_chess.db")
@@ -95,7 +95,7 @@ def join_game(
             "w",
             board_fen,
             json.dumps(hostage_state),
-            datetime.now().isoformat(),
+            datetime.now(timezone.utc).isoformat(),
             game_time,
             game_time,
         ),
@@ -177,7 +177,7 @@ def save_turn(
             turn,
             board_fen,
             json.dumps(hostage_state),
-            datetime.now().isoformat(),
+            datetime.now(timezone.utc).isoformat(),
             white_time,
             black_time,
         ),
