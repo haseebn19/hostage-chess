@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import urllib.parse
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 
@@ -541,7 +541,7 @@ class RequestHandler(BaseHTTPRequestHandler):
     def _serve_static(self, path: str) -> None:
         """Serve files from the static directory."""
         relative = path.removeprefix("/static/")
-        
+
         try:
             filepath = (STATIC_DIR / relative).resolve()
         except Exception:
@@ -624,7 +624,7 @@ class RequestHandler(BaseHTTPRequestHandler):
     @staticmethod
     def _elapsed_since(iso_time: str) -> int:
         """Calculate seconds elapsed since the given ISO time string."""
-        return int((datetime.now(timezone.utc) - datetime.fromisoformat(iso_time)).total_seconds())
+        return int((datetime.now(UTC) - datetime.fromisoformat(iso_time)).total_seconds())
 
     def _get_state_from_turn(self, turn_data: dict) -> GameState:
         """Reconstruct GameState from turn_data dictionary."""
